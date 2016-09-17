@@ -1,0 +1,12 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/app.html",
+  "fragments": [
+    "src/home.html",
+    "src/hoosafe.html",
+    "src/aboutus.html",
+    "src/demo.html",
+    "src/careers.html",
+    "src/news.html"
+  ]
+}

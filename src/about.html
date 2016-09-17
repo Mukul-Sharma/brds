@@ -1,0 +1,156 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="brds-about">
+
+  <template>
+
+    <style>
+      :host {
+        display: block;
+        padding: 30px;
+      }
+
+      .circle {
+        display: inline-block;
+        height: 64px;
+        width: 64px;
+        border-radius: 50%;
+        background: #ddd;
+        line-height: 64px;
+        font-size: 30px;
+        color: #555;
+        text-align: center;
+      }
+
+      h1 {
+        @apply(--paper-font-display1);
+      }
+
+      h3 {
+        @apply(--paper-font-subhead);
+      }
+
+      paper-card.founder {
+        margin-top: 20px;
+        @apply(--layout-center);
+        @apply(--layout-horizontal);
+      }
+
+      .founder-image {
+        margin: 20px;
+        width: 200px;
+        min-height: 200px;
+      }
+
+      .founder-content {
+        @apply(--layout-flex);
+        float: right;;
+      }
+
+      .founder-name { @apply(--paper-font-headline); }
+
+      .founder-designation { color: var(--paper-grey-600); margin: 10px 0; }
+    </style>
+
+    <h3>We are a start-up based out of Chandigarh founded by 5 professionals who have international corporate experience of 80+ years having worked with the likes of IBM; DHL; International SOS, NHS etc.
+      The team has proven entrepreneurial skills having founded and built successful businesses in retail services; hospitals and brand & IT consulting.
+
+      We understand scale and have complimentary skill sets covering information technology; branding/communications; medicine, sales & marketing and finance. We are developing integrated and specialised solutions for healthcare, safety and travel situations.
+
+      BRDS aims to build innovative, best-in-class solutions that convert data into knowledge.</h3>
+
+    <h1>Meet our team</h1>
+
+    <div class="founders">
+
+      <paper-card class="founder">
+        <div class="founder-image circle"
+                style="background: url('../images/team/tarun.jpg');
+                background-size : cover;">
+        </div>
+        <div class="founder-content">
+          <div class="card-content">
+            <div class="founder-name">Tarun Sibal</div>
+            <div class="founder-designation">Chief Executive Officer</div>
+            <div>
+              He has over 20 years commercial experience, national and international, with proven problem solving, teambuilding and leadership capabilities in a global/regional business environment. Has exhibited entrepreneurial flair with proven ability to read markets & consumer behavior; plan and execute projects, and formulate commercial/operational strategy. Was based in Europe with DHL Worldwide Express for almost a decade in a variety of regional and global roles. On his return to India established Kidsown, in 2006, an indoor playground for kids as a destination edutainment area for families, the first in North India. Tarun has an MBA from Manchester Business School, University of Manchester, UK and a BBA from The George Washington University, Washington D.C. USA, graduating Magna Cum Laude.
+            </div>
+          </div>
+        </div>
+      </paper-card>
+
+      <paper-card class="founder">
+        <div class="founder-image circle"
+                style="background: url('../images/team/vineet.jpg');
+                background-size : cover;">
+        </div>
+        <div class="founder-content">
+          <div class="card-content">
+            <div class="founder-name">Dr. Vineet Datta</div>
+            <div class="founder-designation">Chief Operating Officer</div>
+            <div>
+              With over 20 years of clinical experience, Vineet has institutionalised and executed appropriate healthcare strategies and clinical operations for Fortune 500 companies. He is an elected Fellow at the Royal College of Physicians and Surgeons, Glasgow, and has prior experience of working at a strategic leadership role with Apollo Hospitals and International SOS. One of his key areas of focus is shifting healthcare delivery to customised, consumer-focused, clinical care solutions, and developing comprehensive healthcare procedures and policies. His training background includes the NHS U.K., Singapore Management University as well as the American Society for Quality. Vineet is a Diplomate for Membership to the Royal College of Physicians, United Kingdom (MRCP UK), and also Member of the Royal College of Emergency Medicine (MCEM), London.
+            </div>
+          </div>
+        </div>
+      </paper-card>
+
+      <paper-card class="founder">
+        <div class="founder-image circle"
+                style="background: url('../images/team/vivek.jpg');
+                background-size : cover;">
+        </div>
+        <div class="founder-content">
+          <div class="card-content">
+            <div class="founder-name">Vivek Bogra</div>
+            <div class="founder-designation">Chief Branding Officer</div>
+            <div>
+              After 20 years of work experience in the US, Vivek and his family moved to their native place Chandigarh in 2010 and set up a design house - B2 Brand Design. He studied at the Bloomsburg University of Pennsylvania, and the Art Institute of Pittsburgh. He has worked with various design houses in Pittsburgh and New York before joining the IBM Corporate Communications team in Armonk (CHQ), NY. Vivek has a passion for creativity and follows the age old adage of "Good Design is Good Business".
+            </div>
+          </div>
+        </div>
+      </paper-card>
+
+      <paper-card class="founder">
+        <div class="founder-image circle"
+                style="background: url('../images/team/guntas.jpg');
+                background-size : cover;">
+        </div>
+        <div class="founder-content">
+          <div class="card-content">
+            <div class="founder-name">Guntas Randhawa</div>
+            <div class="founder-designation">Chief Technology Officer</div>
+            <div>
+              Guntas brings over 12 years of experience in developing and executing operational strategies to promote organizational growth with optimal utilization of emerging technologies. He has an excellent appreciation of the consumer environment and has the ability to design and implement intelligent solutions that are simple to comprehend and use. He has demonstrated design simplicity and ease of use in scalable solutions for the retail, healthcare, and IT verticals. Guntas is passionate about healthcare for the elderly and is constantly pushing the envelope to connect the dots on the fast changing technology landscape. Guntas has studied Computer Science from University of Windsor, Ontario, Canada.
+            </div>
+          </div>
+        </div>
+      </paper-card>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'brds-about'
+
+    });
+
+  </script>
+
+</dom-module>

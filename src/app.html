@@ -1,0 +1,205 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+
+<link rel="import" href="my-icons.html">
+
+<dom-module id="brds-app">
+
+  <template>
+
+    <style>
+
+      :host {
+        display: block;
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+      }
+
+      app-toolbar {
+        color: white;
+        background-color: #00aaff;
+      }
+
+      .main-header {
+        box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
+      }
+
+      paper-tabs {
+        max-width: 640px;
+        color: white;
+        --paper-tabs-selection-bar-color: white;
+      }
+
+      paper-tab {
+        --paper-tab-ink: #aaa;
+        text-transform: uppercase;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      .logo {
+        max-height: 50px;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <app-drawer-layout force-narrow>
+
+      <app-drawer id="drawer" opened={{drawerOpened}}>
+
+        <!-- an empty toolbar in the drawer looks like a
+             continuation of the main toolbar. It's optional. -->
+        <app-toolbar></app-toolbar>
+
+        <!-- Nav on mobile: side nav menu -->
+        <paper-menu selected="{{page}}" attr-for-selected="name">
+          <template is="dom-repeat" items="{{items}}">
+            <paper-item name="{{item.page}}" on-tap="changeTitle">{{item.name}}</paper-item>
+          </template>
+        </paper-menu>
+
+      </app-drawer>
+
+      <app-header-layout>
+        <app-header class="main-header" fixed condenses effects="waterfall">
+
+          <app-toolbar>
+            <!-- drawer toggle button -->
+            <paper-icon-button class="menu-button" icon="menu" drawer-toggle hidden$="{{wideLayout}}"></paper-icon-button>
+            <div main-title>
+              <p hidden$="{{wideLayout}}">{{title}}</p>
+              <img class="img-responsive logo" hidden$="{{!wideLayout}}" src="../images/logo-main-top.svg"></img>
+            </div>
+          </app-toolbar>
+
+          <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}" sticky>
+            <!-- Nav on desktop: tabs -->
+            <paper-tabs selected="{{page}}" attr-for-selected="name" bottom-item>
+              <template is="dom-repeat" items="{{items}}">
+                <paper-tab name="{{item.page}}">{{item.name}}</paper-tab>
+              </template>
+            </paper-tabs>
+          </app-toolbar>
+
+        </app-header>
+
+        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+          <brds-home name="home"></brds-home>
+          <brds-hoosafe name="hoosafe"></brds-hoosafe>
+          <brds-about name="about"></brds-about>
+          <brds-careers name="careers"></brds-careers>
+          <brds-news name="news"></brds-news>
+          <brds-demo name="demo"></brds-demo>
+        </iron-pages>
+
+      </app-header-layout>
+    </app-drawer-layout>
+
+    <iron-media-query query="min-width: 600px" query-matches="{{wideLayout}}"></iron-media-query>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'brds-app',
+
+      properties: {
+
+        wideLayout: {
+          type: Boolean,
+          reflectToAttribute:true,
+            observer: '_layoutChanged'
+        },
+
+        title: {
+          type: String
+        },
+
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
+
+      },
+
+      _toggleDrawer: function() {
+        this.drawerOpened = !this.drawerOpened;
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)'
+      ],
+
+      _routePageChanged: function(page) {
+        this.page = page || 'home';
+      },
+
+      _pageChanged: function(page) {
+        // load page import on demand.
+        this.importHref(this.resolveUrl(page + '.html'), null, null, true);
+        this.drawerOpened = false;
+      },
+
+      _layoutChanged: function(isWide) {
+        if (isWide) {
+          this.title = "BRDS";
+        } else {
+          this.title = "Home";
+        }
+      },
+
+      changeTitle: function (e) {
+        this.title = e.model.item.name;
+      },
+
+      ready : function () {
+        this.title = "BRDS";
+        this.items = [
+          {name : "Home", page: "home"},
+          {name : "Hoosafe", page: "Hoosafe"},
+          {name : "About Us", page: "about"},
+          {name : "Careers", page: "careers"},
+          {name : "News", page: "news"},
+          {name : "Demo", page: "demo"},
+        ];
+      }
+
+    });
+
+  </script>
+
+</dom-module>
